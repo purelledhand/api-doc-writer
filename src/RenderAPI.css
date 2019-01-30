@@ -1,0 +1,45 @@
+.RenderAPI__container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 30px;
+    width: 90%;
+}
+
+.RenderAPI__container button {
+    display: flex;
+    justify-content: flex-start;
+    margin-right: -10px !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.RenderAPI__Content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    height: 36px;
+    width: 100%;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    border-radius: .28571429rem;
+}
+
+.RenderAPI__Endpoint {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin : 0 0 0 20px;
+}
+
+.RenderAPI__Description {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin : 0 10px;
+}
+
+
