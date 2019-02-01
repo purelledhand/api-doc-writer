@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './RegisterAPI.css';
 
 class RegisterAPI extends Component {
-  state  = {
+  state = {
     method: '',
     endpoint: '',
     description: '',
@@ -23,38 +23,53 @@ class RegisterAPI extends Component {
 
   };
 
-  _handleKeyChange = (e) => {
+  _handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.onCreate(this.state);
+
     this.setState({
-      parameters: [{
-        ...this.state.parameters,
-        [e.target.value]:''
-      }]
+      method: '',
+      endpoint: '',
+      description: '',
     });
   };
 
-  _Register = (event) => {
+  _handleKeyChange = (e) => {
+    this.setState({
+      parameters: [
+        ...this.state.parameters,
+        {
+          [e.target.name]: e.target.value
+        }]
+    });
+  };
+
+  _Register = () => {
+    return (
+      <RenderInfo method={this.state.method} endpoint={this.state.endpoint} description={this.state.description}/>
+    );
 
   };
 
   render() {
-    console.log('enter');
     return (
       <div className="RegisterAPI__container">
         <div className="RegisterAPI__title">
           <h2>register API</h2>
         </div>
 
-        <form className="RegisterAPI__form ui form">
+        <form className="RegisterAPI__form ui form" onSubmit={this._handleSubmit}>
 
           <div className="RegisterAPI__form__contents">
             <div className="field">
               <label>Method</label>
-            <div className="ui buttons">
-              <button className="ui button" name='method' value='GET' onClick={this._handleChange}>GET</button>
-              <button className="ui button" name='method' value='POST' onClick={this._handleChange}>POST</button>
-              <button className="ui button" name='method' value='PUT' onClick={this._handleChange}>PUT</button>
-              <button className="ui button" name='method' value='DELETE' onClick={this._handleChange}>DELETE</button>
-            </div>
+              <div className="ui buttons">
+                <button className="ui button" name='method' value='GET' onClick={this._handleChange}>GET</button>
+                <button className="ui button" name='method' value='POST' onClick={this._handleChange}>POST</button>
+                <button className="ui button" name='method' value='PUT' onClick={this._handleChange}>PUT</button>
+                <button className="ui button" name='method' value='DELETE' onClick={this._handleChange}>DELETE</button>
+              </div>
               {this.state.method}
             </div>
           </div>
@@ -67,24 +82,24 @@ class RegisterAPI extends Component {
                      name="description"
                      value={this.state.description}
                      onChange={this._handleChange}
-               />
+              />
             </div>
           </div>
 
           <div className="RegisterAPI__form__contents">
             <div className="field">
               <label>Endpoint</label>
-            <div className="ui labeled input">
-              <div className="ui label">
-                /api/
+              <div className="ui labeled input">
+                <div className="ui label">
+                  /api/
+                </div>
+                <input type="text"
+                       name="endpoint"
+                       placeholder="endpoint"
+                       value={this.state.endpoint}
+                       onChange={this._handleChange}
+                />
               </div>
-              <input type="text"
-                     name="endpoint"
-                     placeholder="endpoint"
-                     value={this.state.endpoint}
-                     onChange={this._handleChange}
-              />
-            </div>
             </div>
           </div>
 
@@ -122,11 +137,22 @@ class RegisterAPI extends Component {
             </div>
           </div>
 
-          <div className="ui button" tabIndex="0" onClick={this._Register}>Register API!</div>
+          <button className="ui button" tabIndex="0" onClick={this._Register} type="submit">Register API!</button>
         </form>
+
       </div>
     );
   }
 }
 
 export default RegisterAPI;
+
+function RenderInfo({method, endpoint, description}) {
+  return (
+    <div>
+      <div>{method}</div>
+      <div>/api/+{endpoint}</div>
+      <div>{description}</div>
+    </div>
+  );
+}
